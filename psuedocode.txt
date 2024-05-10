@@ -1,0 +1,32 @@
+##### PSEUDOCODE #####
+
+IMPORT discord						# Imports necessary modules for my user-defined functions to work as commands in Discord
+
+CLASS <cog>(commands.Cog)			# Encapsulates commands to their respective cogs
+	PROCEDURE __init__(self, bot)
+	BEGIN PROCEDURE
+		self.bot = bot
+	END PROCEDURE
+	
+	DECORATOR commands.Cog.listener				# Decorates events with a "Cog.listener" wrapper -
+		ASYNC COROUTINE <event 1>(self, *)		# - so the bot can run events asynchronously
+	BEGIN COROUTINE
+		<event 1 expressions>
+		...
+		AWAIT <last expression for event 1>		# Coroutines will output 'awaitables' in last line of their expressions -
+	END COROUTINE								# - e.g. AWAIT SEND <message> TO DISPLAY
+ ...
+
+ DECORATOR commands.Command(aliases)			# Decorates commands with a "Command" wrapper -
+	ASYNC COROUTINE <command 1>(self, *)	# - so the bot can recognise the coroutines as commands
+	BEGIN COROUTINE
+			<command 1 expressions>
+			...
+			AWAIT <last expression for command 1>
+		END COROUTINE
+	...
+	
+PROCEDURE setup(bot)
+BEGIN PROCEDURE
+	bot.add_cog(<cog>(bot))
+END PROCEDURE1
